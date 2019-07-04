@@ -1,15 +1,22 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import '../styles/App.css';
+import Header from '../components/Header';
 import LinkList from '../components/Linklist';
 import CreateLink from '../components/CreateLink';
 
 function App() {
   return (
-    <Fragment>
-      <LinkList />
-      <CreateLink />
-    </Fragment>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/' component={LinkList} />
+          <Route exact path='/create' component={CreateLink} />
+        </Switch>
+      </div>
+    </div>
   );
 }
 

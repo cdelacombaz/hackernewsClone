@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 const POST_MUTATION = gql`
   mutation PostMutation($description: String!, $url: String!) {
@@ -13,7 +14,7 @@ const POST_MUTATION = gql`
   }
 `;
 
-function CreateLink() {
+function CreateLink(props) {
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
 
@@ -35,11 +36,15 @@ function CreateLink() {
           placeholder='The URL'
         />
       </div>
-      <Mutation mutation={POST_MUTATION} variables={{ description, url }}>
+      <Mutation
+        mutation={POST_MUTATION}
+        variables={{ description, url }}
+        onCompleted={() => props.history.push('/')}
+      >
         {postMutation => <button onClick={postMutation}>Submit</button>}
       </Mutation>
     </div>
   );
 }
 
-export default CreateLink;
+export default withRouter(CreateLink);
